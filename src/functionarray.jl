@@ -16,10 +16,16 @@ end
 ### Single mode constructor
 FunctionArray(f, ids::AbstractRange) = FunctionArray(f, [ids,])
 FunctionArray(f, ids::AbstractRange...) = FunctionArray(f, [ids...])
+FunctionArray(::UndefInitializer, ids::Tuple) = default_arraytype(){default_eltype}(undef, ids)
+FunctionArray{N,T}(::UndefInitializer, ids::Tuple) where{N,T} = default_arraytype(){N,T}(undef, ids)
 
 ### Information about tensor
 Base.ndims(FT::FunctionArray) = length(FT.domains)
 Base.size(FT::FunctionArray) = Tuple(length.(FT.domains))
+## Similar will materialize the function because we don't know what 
+## function the new tensor will have
+Base.similar(FT::FunctionArray) = similar(default_arraytype(){eltype(FT)}, Tuple(dims(FT)))
+Base.similar(FT::FunctionArray, ds::Tuple) = similar(default_arraytype(){eltype(FT)}, ds)
 dims(FT::FunctionArray) = map(i-> length(i), FT.domains)
 dim(FT::FunctionArray, i::Int) = length(FT.domains[i])
     
