@@ -1,0 +1,4 @@
+name = "LazyFunctionArray"
+uuid = "0de900f7-612a-4777-b50a-2858c1956e24"
+authors = ["Karl Pierce <karl.m.pierce@gmail.com>"]
+version = "0.0.1"
