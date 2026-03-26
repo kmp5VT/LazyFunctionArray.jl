@@ -1,4 +1,4 @@
-using Pkg, Test
+using Pkg, Test, LinearAlgebra
 # Pkg.develop(path="$(@__DIR__)/LazyFunctionTensor.jl/")
 # Pkg.activate()
 using LazyFunctionArray
@@ -26,3 +26,10 @@ for i in 1:21
 end
 
 @test t ≈ LazyFunctionArray.materialize(FT)
+
+m = randn(21,5);
+@test m + FT ≈ m + t
+@test FT * m' ≈ t * m'
+
+q,r = qr(FT)
+@test q * r ≈ t

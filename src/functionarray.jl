@@ -16,6 +16,8 @@ end
 ### Single mode constructor
 FunctionArray(f, ids::AbstractRange) = FunctionArray(f, [ids,])
 FunctionArray(f, ids::AbstractRange...) = FunctionArray(f, [ids...])
+
+## If trying to build with no information (undef) just make array for now.
 FunctionArray(::UndefInitializer, ids::Tuple) = default_arraytype(){default_eltype}(undef, ids)
 FunctionArray{N,T}(::UndefInitializer, ids::Tuple) where{N,T} = default_arraytype(){N,T}(undef, ids)
 
