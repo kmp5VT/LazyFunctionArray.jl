@@ -33,7 +33,7 @@ dim(FT::FunctionArray, i::Int) = length(FT.domains[i])
     
 
 function convert_ids_to_domain(FT::FunctionArray, ids) 
-    return Tuple([domain[i] for (domain, i) in zip(FT.domains, ids)])
+    return map((domain, i) -> domain[i], FT.domains, ids)
 end
 
 function Base.getindex(FT::FunctionArray, ids...)
