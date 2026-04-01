@@ -1,6 +1,4 @@
 using Pkg, Test, LinearAlgebra
-# Pkg.develop(path="$(@__DIR__)/LazyFunctionTensor.jl/")
-# Pkg.activate()
 using LazyFunctionArray
 using LazyFunctionArray: FunctionArray
 ft_empty = FunctionArray()
