@@ -34,6 +34,13 @@ dim(FA::FunctionArray, i::Int) = length(FA.domains[i])
 func(FA::FunctionArray) = FA.f
 domains(FA::FunctionArray) = FA.domains
 
+# Base.Array(FA::FunctionArray{N,T}) where {N,T} = FA
+function Base.reshape(FA::Base.ReshapedArray{T, N, G}, ds::Dims) where {T, N, G<:FunctionArray}
+    if Tuple(dims(FA.parent)) == ds
+        return FA.parent
+    end
+    Base._reshape(parent, ds)
+end
 function convert_ids_to_domain(FA::FunctionArray, ids) 
     return map((domain, i) -> domain[i], FA.domains, ids)
 end
